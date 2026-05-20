@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Cormorant_Garamond, Inter } from 'next/font/google'
+import { GoogleTagManager } from '@next/third-parties/google'
 import './globals.css'
 
 const cormorant = Cormorant_Garamond({
@@ -78,6 +79,10 @@ export default function RootLayout({
         </a>
         {children}
       </body>
+      {/* Google Tag Manager — add GTM_ID to Vercel env vars */}
+      {process.env.NEXT_PUBLIC_GTM_ID && (
+        <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
+      )}
     </html>
   )
 }
