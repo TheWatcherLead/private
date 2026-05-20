@@ -1,5 +1,20 @@
 import { createClient } from './server'
-import type { Property, Project } from '@/types'
+import type { Property, Project, TeamMember } from '@/types'
+
+export async function getTeam(): Promise<TeamMember[]> {
+  try {
+    const supabase = await createClient()
+    const { data, error } = await supabase
+      .from('team')
+      .select('*')
+      .eq('is_active', true)
+      .order('display_order', { ascending: true })
+    if (error) throw error
+    return data ?? []
+  } catch {
+    return []
+  }
+}
 
 export async function getFeaturedProperties(): Promise<Property[]> {
   try {
