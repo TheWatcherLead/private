@@ -68,10 +68,10 @@ export default async function AboutPage() {
         <div className="max-w-[1280px] mx-auto px-4 md:px-8">
           <dl className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
-              { value: '25+', label: 'Years of Excellence' },
-              { value: '200+', label: 'Projects Completed' },
-              { value: '500+', label: 'Happy Clients' },
-              { value: '20%', label: 'Year-on-Year Growth' },
+              { value: '25+',   label: 'Years of Excellence'          },
+              { value: '3000+', label: 'Families & Businesses Served' },
+              { value: '20%',   label: 'Year-on-Year Growth'          },
+              { value: '15+',   label: 'Awards Won'                   },
             ].map(({ value, label }) => (
               <div key={label}>
                 <dt className="font-sans text-xs tracking-[0.2em] uppercase text-[#A89F94] mb-2">{label}</dt>
