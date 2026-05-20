@@ -15,51 +15,29 @@ const staticRoutes: MetadataRoute.Sitemap = [
 ]
 
 async function getDynamicRoutes(): Promise<MetadataRoute.Sitemap> {
-  // Only attempt Supabase fetch if URL is configured
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? ''
   if (!supabaseUrl.startsWith('http')) return []
-
   try {
     const { createAdminClient } = await import('@/lib/supabase/admin')
     const db = createAdminClient()
-
-    const [{ data: properties }, { data: projects }] = await Promise.all([
+    const [{ data: props }, { data: projs }] = await Promise.all([
       db.from('properties').select('slug, updated_at').eq('status', 'active'),
       db.from('projects').select('slug, created_at'),
     ])
-
-    const propertyUrls: MetadataRoute.Sitemap = (properties ?? []).map(p => ({
-      url:             `${BASE}/properties/${p.slug}`,
-      lastModified:    new Date(p.updated_at),
-      changeFrequency: 'weekly',
-      priority:        0.8,
+    const propUrls: MetadataRoute.Sitemap = ((props ?? []) as Array<{ slug: string; updated_at: string }>).map(p => ({
+      url: `${BASE}/properties/${p.slug}`, lastModified: new Date(p.updated_at), changeFrequency: 'weekly', priority: 0.8,
     }))
-
-    const projectUrls: MetadataRoute.Sitemap = (projects ?? []).map(p => ({
-      url:             `${BASE}/projects/${p.slug}`,
-      lastModified:    new Date(p.created_at),
-      changeFrequency: 'monthly',
-      priority:        0.6,
+    const projUrls: MetadataRoute.Sitemap = ((projs ?? []) as Array<{ slug: string; created_at: string }>).map(p => ({
+      url: `${BASE}/projects/${p.slug}`, lastModified: new Date(p.created_at), changeFrequency: 'monthly', priority: 0.6,
     }))
-
-    return [...propertyUrls, ...projectUrls]
-  } catch {
-    return []
-  }
+    return [...propUrls, ...projUrls]
+  } catch { return [] }
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [dynamicRoutes, insights] = await Promise.all([
-    getDynamicRoutes(),
-    getInsights(),
-  ])
-
+  const [dynamic, insights] = await Promise.all([getDynamicRoutes(), getInsights()])
   const insightUrls: MetadataRoute.Sitemap = insights.map(post => ({
-    url:             `${BASE}/insights/${post.slug.current}`,
-    lastModified:    new Date(post.publishedAt),
-    changeFrequency: 'monthly',
-    priority:        0.5,
+    url: `${BASE}/insights/${post.slug.current}`, lastModified: new Date(post.publishedAt), changeFrequency: 'monthly', priority: 0.5,
   }))
-
-  return [...staticRoutes, ...dynamicRoutes, ...insightUrls]
+  return [...staticRoutes, ...dynamic, ...insightUrls]
 }

@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import Link from 'next/link'
 import { Plus, Pencil } from 'lucide-react'
 import { createAdminClient } from '@/lib/supabase/admin'
@@ -36,7 +38,7 @@ export default async function AdminPropertiesPage() {
                 </tr>
               </thead>
               <tbody>
-                {properties.map(p => (
+                {(properties as Array<{ id: string; title: string; type: string; status: string; price_from: number | null; is_featured: boolean; location: string | null }>).map(p => (
                   <tr key={p.id} className="border-b border-[#2E3447] last:border-0 hover:bg-[#242938]/50 transition-colors">
                     <td className="px-5 py-3">
                       <p className="font-sans text-sm text-[#F5F0E8]">{p.title}</p>

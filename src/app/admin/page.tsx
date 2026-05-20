@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import Link from 'next/link'
 import { Building2, MessageSquare, FolderOpen, Users, Plus } from 'lucide-react'
 import { createAdminClient } from '@/lib/supabase/admin'
