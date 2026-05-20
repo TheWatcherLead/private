@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Modal } from '@/components/ui/modal'
-import { upsertTeamMember, deleteTeamMember } from '@/app/admin/team/actions'
+import { upsertTeamMember, deleteTeamMember } from '@/app/admin/(protected)/team/actions'
 import type { TeamMember } from '@/types'
 
 export function TeamManager({ team }: { team: TeamMember[] }) {

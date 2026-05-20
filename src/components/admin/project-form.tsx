@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Select } from '@/components/ui/select'
 import { Modal } from '@/components/ui/modal'
-import { upsertProject, deleteProject } from '@/app/admin/projects/actions'
+import { upsertProject, deleteProject } from '@/app/admin/(protected)/projects/actions'
 import { slugify } from '@/lib/utils'
 import type { Project } from '@/types'
 

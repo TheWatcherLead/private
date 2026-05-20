@@ -1,7 +1,7 @@
 'use client'
 
 import { useTransition } from 'react'
-import { updateEnquiryStatus } from '@/app/admin/enquiries/actions'
+import { updateEnquiryStatus } from '@/app/admin/(protected)/enquiries/actions'
 import type { EnquiryStatus } from '@/types'
 
 const options: { value: EnquiryStatus; label: string }[] = [

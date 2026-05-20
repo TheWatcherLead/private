@@ -1,5 +1,10 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# Local setup scripts (may contain secrets)
+/scripts/
+/--full-page
+/--viewport
+
 # dependencies
 /node_modules
 /.pnp

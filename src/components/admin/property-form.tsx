@@ -9,7 +9,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Select } from '@/components/ui/select'
 import { Badge } from '@/components/ui/badge'
 import { Modal } from '@/components/ui/modal'
-import { upsertProperty, deleteProperty, upsertUnit, deleteUnit } from '@/app/admin/properties/actions'
+import { upsertProperty, deleteProperty, upsertUnit, deleteUnit } from '@/app/admin/(protected)/properties/actions'
 import { slugify, formatPrice, formatArea } from '@/lib/utils'
 import type { Property, Unit, UnitStatus } from '@/types'
 
