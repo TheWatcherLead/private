@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+:root {
+  /* Axis Concept Design Tokens */
+  --color-bg-primary:     #0F1117;
+  --color-bg-surface:     #1A1F2E;
+  --color-bg-elevated:    #242938;
+  --color-accent-green:   #3D6B35;
+  --color-accent-gold:    #C9A96E;
+  --color-text-primary:   #F5F0E8;
+  --color-text-secondary: #A89F94;
+  --color-border:         #2E3447;
+  --color-error:          #E05252;
+  --color-success:        #4CAF7D;
+
+  --background: var(--color-bg-primary);
+  --foreground: var(--color-text-primary);
+}
+
+@theme inline {
+  --color-background: var(--color-bg-primary);
+  --color-foreground: var(--color-text-primary);
+  --color-surface: var(--color-bg-surface);
+  --color-elevated: var(--color-bg-elevated);
+  --color-gold: var(--color-accent-gold);
+  --color-green: var(--color-accent-green);
+  --color-muted: var(--color-text-secondary);
+  --color-border: var(--color-border);
+  --color-error: var(--color-error);
+  --color-success: var(--color-success);
+
+  --font-serif: var(--font-cormorant);
+  --font-sans: var(--font-inter);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Focus rings — gold for all interactive elements */
+:focus-visible {
+  outline: 2px solid var(--color-accent-gold);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-surface);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-gold);
+}
+
+/* Selection color */
+::selection {
+  background-color: var(--color-accent-gold);
+  color: var(--color-bg-primary);
+}
