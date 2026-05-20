@@ -12,7 +12,44 @@ import {
   getFeaturedProjects,
 } from '@/lib/supabase/queries'
 
-export const revalidate = 3600 // ISR: regenerate every hour
+export const revalidate = 3600
+
+const localBusinessJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'RealEstateAgent',
+  name: 'Axis Concept',
+  description: 'Luxury residential and commercial real estate developer in Bangalore, rooted in biophilic design philosophy.',
+  url: 'https://www.axisconcept.in',
+  telephone: '+91-96061-16110',
+  email: 'sales@axisconcept.in',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Bangalore',
+    addressRegion: 'Karnataka',
+    addressCountry: 'IN',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 12.9716,
+    longitude: 77.5946,
+  },
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    opens: '09:00',
+    closes: '18:00',
+  },
+  sameAs: [
+    'https://instagram.com/axisconcept',
+    'https://linkedin.com/company/axisconcept',
+  ],
+  areaServed: {
+    '@type': 'City',
+    name: 'Bangalore',
+  },
+  numberOfEmployees: { '@type': 'QuantitativeValue', value: 50 },
+  foundingDate: '1999',
+}
 
 async function FeaturedPropertiesSection() {
   const properties = await getFeaturedProperties()
@@ -40,6 +77,10 @@ function FeaturedPropertiesFallback() {
 export default function HomePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+      />
       <Hero />
       <StatsBar />
       <Suspense fallback={<FeaturedPropertiesFallback />}>
