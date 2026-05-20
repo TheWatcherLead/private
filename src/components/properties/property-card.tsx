@@ -17,7 +17,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
   } = property
 
   return (
-    <article className="group rounded-xl border border-[#2E3447] bg-[#1A1F2E] overflow-hidden transition-all duration-300 hover:border-[#C9A96E]/40 hover:shadow-[0_8px_32px_rgba(201,169,110,0.08)]">
+    <article className="relative group rounded-xl border border-[#2E3447] bg-[#1A1F2E] overflow-hidden transition-all duration-300 hover:border-[#C9A96E]/40 hover:shadow-[0_8px_32px_rgba(201,169,110,0.08)]">
       {/* Thumbnail */}
       <div className="relative aspect-video overflow-hidden bg-[#242938]">
         {thumbnail_url ? (
