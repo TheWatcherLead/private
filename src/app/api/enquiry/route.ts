@@ -10,6 +10,25 @@ const schema = z.object({
   source_page: z.string().optional(),
 })
 
+// Fire-and-forget n8n webhook — never blocks the response
+async function notifyN8n(data: {
+  name: string; phone: string; email?: string | null
+  message?: string | null; source_page?: string | null
+}) {
+  const webhookUrl = process.env.N8N_ENQUIRY_WEBHOOK_URL
+  if (!webhookUrl) return
+  try {
+    await fetch(webhookUrl, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(data),
+      signal:  AbortSignal.timeout(5000), // 5s max
+    })
+  } catch {
+    // Silently fail — notification is non-critical
+  }
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json()
@@ -37,6 +56,15 @@ export async function POST(request: Request) {
     })
 
     if (error) throw error
+
+    // Notify n8n (non-blocking — runs after response is sent)
+    void notifyN8n({
+      name:        result.data.name,
+      phone:       result.data.phone,
+      email:       result.data.email || null,
+      message:     result.data.message || null,
+      source_page: result.data.source_page || null,
+    })
 
     return Response.json({ success: true }, { status: 201 })
   } catch {
