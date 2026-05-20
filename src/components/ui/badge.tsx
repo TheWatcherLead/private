@@ -1,13 +1,16 @@
 import { HTMLAttributes } from 'react'
 import { cn } from '@/lib/utils'
 
-type BadgeVariant = 'available' | 'sold' | 'coming_soon' | 'active' | 'reserved' | 'residential' | 'commercial' | 'warehouse' | 'academic' | 'new' | 'default'
+type BadgeVariant = 'available' | 'sold' | 'coming_soon' | 'active' | 'reserved' | 'residential' | 'commercial' | 'warehouse' | 'academic' | 'new' | 'contacted' | 'qualified' | 'closed' | 'default'
 
 interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   variant?: BadgeVariant
 }
 
 const variantStyles: Record<BadgeVariant, string> = {
+  contacted: 'bg-amber-500/15 text-amber-400 border border-amber-500/20',
+  qualified: 'bg-blue-500/15 text-blue-400 border border-blue-500/20',
+  closed:    'bg-slate-500/15 text-slate-400 border border-slate-500/20',
   available:    'bg-emerald-500/15 text-emerald-400 border border-emerald-500/20',
   active:       'bg-emerald-500/15 text-emerald-400 border border-emerald-500/20',
   sold:         'bg-red-500/15 text-red-400 border border-red-500/20',
@@ -22,6 +25,9 @@ const variantStyles: Record<BadgeVariant, string> = {
 }
 
 const variantLabels: Partial<Record<BadgeVariant, string>> = {
+  contacted: 'Contacted',
+  qualified: 'Qualified',
+  closed:    'Closed',
   available:   'Available',
   active:      'Available',
   sold:        'Sold Out',
